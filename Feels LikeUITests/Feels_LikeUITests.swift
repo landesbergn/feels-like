@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import ForecastIO
 
 class Feels_LikeUITests: XCTestCase {
         
