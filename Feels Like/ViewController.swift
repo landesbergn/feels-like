@@ -15,6 +15,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var cityLbl: UILabel!
     @IBOutlet weak var feelsLikeTmpLbl: UILabel!
+    @IBOutlet weak var summaryLbl: UILabel!
     
     // Used to start getting the users location
     let locationManager = CLLocationManager()
@@ -63,7 +64,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     }
     
     func updateWeatherForLocation(lat:Double, lon:Double) {
-        self.client.getForecast(latitude: lat, longitude: lon) { result in
+        self.client.getForecast(latitude: lat, longitude: lon, excludeFields: [.alerts, .daily, .flags, .minutely]) { result in
             switch result {
             case .success(let currentForecast, let requestMetadata):
                 //  We got the current forecast!
@@ -71,6 +72,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                     print(currentFeelsTemperature)
                     DispatchQueue.main.async {
                         self.feelsLikeTmpLbl.text = String(Int(round(currentFeelsTemperature)))
+                    }
+                }
+                if let summaryInfo: String = currentForecast.currently?.summary {
+                    print(summaryInfo)
+                    DispatchQueue.main.async {
+                        self.summaryLbl.text = summaryInfo
                     }
                 }
                 print(requestMetadata)
