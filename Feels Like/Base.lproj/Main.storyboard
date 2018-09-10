@@ -44,8 +44,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="taf-yH-vRl">
-                                <rect key="frame" x="111" y="155" width="153" height="314"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="taf-yH-vRl">
+                                <rect key="frame" x="111" y="155" width="153" height="344"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="217"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -62,7 +62,7 @@
                                 <color key="shadowColor" red="0.29411764709999999" green="0.46274509800000002" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iy6-AM-UaI">
-                                <rect key="frame" x="188" y="566" width="0.0" height="21"/>
+                                <rect key="frame" x="188" y="596" width="0.0" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Tjc-oQ-c8p"/>
                                 </constraints>
@@ -71,7 +71,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpx-eo-Ehp">
-                                <rect key="frame" x="60" y="524" width="255" height="39"/>
+                                <rect key="frame" x="60" y="554" width="255" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="OX6-1L-dA5"/>
                                 </constraints>
@@ -80,7 +80,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haC-H9-SDf">
-                                <rect key="frame" x="30" y="369" width="315" height="138"/>
+                                <rect key="frame" x="30" y="459" width="315" height="78"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -98,9 +98,9 @@
                             <constraint firstItem="iy6-AM-UaI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O0k-R7-HPZ"/>
                             <constraint firstItem="gpx-eo-Ehp" firstAttribute="top" secondItem="haC-H9-SDf" secondAttribute="bottom" constant="17" id="PDb-r2-Pzj"/>
                             <constraint firstItem="gpx-eo-Ehp" firstAttribute="top" secondItem="taf-yH-vRl" secondAttribute="bottom" constant="55" id="Ss0-Ne-l5a"/>
-                            <constraint firstItem="haC-H9-SDf" firstAttribute="top" secondItem="taf-yH-vRl" secondAttribute="bottom" constant="-100" id="Wy5-8q-0Vt"/>
+                            <constraint firstItem="haC-H9-SDf" firstAttribute="top" secondItem="taf-yH-vRl" secondAttribute="bottom" constant="-40" id="Wy5-8q-0Vt"/>
                             <constraint firstItem="1Gv-gi-lmL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bIx-OS-6Ac"/>
-                            <constraint firstAttribute="bottom" secondItem="iy6-AM-UaI" secondAttribute="bottom" constant="80" id="cVa-7x-Un3"/>
+                            <constraint firstAttribute="bottom" secondItem="iy6-AM-UaI" secondAttribute="bottom" constant="50" id="cVa-7x-Un3"/>
                             <constraint firstItem="taf-yH-vRl" firstAttribute="top" secondItem="xyc-lf-DUN" secondAttribute="bottom" constant="8" symbolic="YES" id="eTV-Oy-Qmx"/>
                             <constraint firstItem="iy6-AM-UaI" firstAttribute="top" secondItem="gpx-eo-Ehp" secondAttribute="bottom" constant="3" id="hqI-aQ-YXD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="QXh-QV-nim" secondAttribute="trailing" constant="81" id="j03-I4-oGn"/>

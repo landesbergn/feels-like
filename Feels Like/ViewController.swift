@@ -21,7 +21,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     let locationManager = CLLocationManager()
     
     // Load the DarkSkyClient from the ForecastIO package
-    let client = DarkSkyClient(apiKey: "74875c19c438ac203cf7176642c451f2")
+    let client = DarkSkyClient(apiKey: "xxx")
     
     override func viewDidLoad() {
         super.viewDidLoad()
