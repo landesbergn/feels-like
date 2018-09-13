@@ -16,6 +16,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet weak var cityLbl: UILabel!
     @IBOutlet weak var feelsLikeTmpLbl: UILabel!
     @IBOutlet weak var summaryLbl: UILabel!
+    @IBOutlet weak var asOfLbl: UILabel!
     
     // Used to start getting the users location
     let locationManager = CLLocationManager()
@@ -43,8 +44,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
             
-            // to do, print last updated time
-            // print(Date())
+            // to do: format date in terms of 'since last update'
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+            let date = Date()
+            let date_string = (dateFormatter.string(from: date))
+            self.asOfLbl.text = "last update: " + date_string
+            print(date_string)
             if (error != nil) {
                 print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
                 return
