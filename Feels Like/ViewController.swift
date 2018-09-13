@@ -10,12 +10,12 @@ import UIKit
 import CoreLocation
 import ForecastIO
 
-class ViewController: UIViewController, CLLocationManagerDelegate  {
+class ViewController: UITableViewController, CLLocationManagerDelegate  {
 
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var cityLbl: UILabel!
-    @IBOutlet weak var feelsLikeTmpLbl: UILabel!
-    @IBOutlet weak var summaryLbl: UILabel!
+//    @IBOutlet weak var label: UILabel!
+//    @IBOutlet weak var cityLbl: UILabel!
+//    @IBOutlet weak var feelsLikeTmpLbl: UILabel!
+//    @IBOutlet weak var summaryLbl: UILabel!
     
     // Used to start getting the users location
     let locationManager = CLLocationManager()
@@ -39,6 +39,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         client.language = .english
 
     }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return 0
+    }
+
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
@@ -73,15 +84,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                 //  We got the current forecast!
                 if let currentFeelsTemperature: Double = currentForecast.currently?.temperature {
                     print(currentFeelsTemperature)
-                    DispatchQueue.main.async {
-                        self.feelsLikeTmpLbl.text = String(Int(round(currentFeelsTemperature)))
-                    }
+//                    DispatchQueue.main.async {
+//                        self.feelsLikeTmpLbl.text = String(Int(round(currentFeelsTemperature)))
+//                    }
                 }
                 if let summaryInfo: String = currentForecast.currently?.summary {
                     print(summaryInfo)
-                    DispatchQueue.main.async {
-                        self.summaryLbl.text = summaryInfo
-                    }
+//                    DispatchQueue.main.async {
+//                        self.summaryLbl.text = summaryInfo
+//                    }
                 }
                 print(requestMetadata)
             case .failure(let error):
@@ -100,8 +111,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             //let administrativeArea = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
             //let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
 
-            label.text = postalCode
-            cityLbl.text = locality
+//            label.text = postalCode
+//            cityLbl.text = locality
 
         }
         
