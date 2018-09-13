@@ -21,7 +21,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     let locationManager = CLLocationManager()
     
     // Load the DarkSkyClient from the ForecastIO package
-    let client = DarkSkyClient(apiKey: "xxx")
+    let client = DarkSkyClient(apiKey: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +43,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)->Void in
             
+            // to do, print last updated time
+            // print(Date())
             if (error != nil) {
                 print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
                 return
@@ -57,7 +59,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             }
             
             let location = locations.first
-            self.locationManager.stopUpdatingLocation()
+            // if I want to force stop location updates, use below
+            // self.locationManager.stopUpdatingLocation()
             self.updateWeatherForLocation(lat: (location?.coordinate.latitude)!, lon: (location?.coordinate.longitude)!)
             
         })
