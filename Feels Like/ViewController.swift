@@ -46,11 +46,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             
             // to do: format date in terms of 'since last update'
             let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
+            dateFormatter.dateStyle = .none
             dateFormatter.timeStyle = .short
             let date = Date()
+            
+            // some stuff to maybe use later to take the difference in dates
+            // let time = date.timeIntervalSinceNow
+            // print(time)
+                        
             let date_string = (dateFormatter.string(from: date))
-            self.asOfLbl.text = "last update: " + date_string
+            self.asOfLbl.text = "last updated: " + date_string
             print(date_string)
             if (error != nil) {
                 print("Reverse geocoder failed with error" + (error?.localizedDescription)!)
