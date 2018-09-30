@@ -54,8 +54,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last updated:       " textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="ROv-jm-Qr2">
-                                <rect key="frame" x="128.66666666666666" y="564.33333333333337" width="118" height="19"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                                <rect key="frame" x="121.33333333333333" y="564.33333333333337" width="132.66666666666669" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -65,11 +65,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="example error" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="none" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="T6N-KQ-qFB">
+                                <rect key="frame" x="132" y="591.66666666666663" width="111.33333333333331" height="21"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" red="0.58081901069999997" green="0.088427625600000004" blue="0.31863921880000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="haC-H9-SDf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3pW-oF-ZRk"/>
                             <constraint firstItem="haC-H9-SDf" firstAttribute="top" secondItem="taf-yH-vRl" secondAttribute="bottom" constant="25" id="7YD-Dj-rji"/>
+                            <constraint firstItem="T6N-KQ-qFB" firstAttribute="top" secondItem="ROv-jm-Qr2" secondAttribute="bottom" constant="7" id="9XV-vF-Rmm"/>
                             <constraint firstItem="xyc-lf-DUN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="CF9-BL-m7h"/>
                             <constraint firstItem="iy6-AM-UaI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LZE-Fq-JRD"/>
                             <constraint firstItem="QXh-QV-nim" firstAttribute="leading" secondItem="taf-yH-vRl" secondAttribute="trailing" constant="-10" id="MRD-TJ-pag"/>
@@ -82,6 +89,7 @@
                             <constraint firstItem="gpx-eo-Ehp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nfZ-F1-DX1"/>
                             <constraint firstItem="taf-yH-vRl" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-188" id="orZ-to-gKj"/>
                             <constraint firstItem="taf-yH-vRl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sO0-t6-g2T"/>
+                            <constraint firstItem="T6N-KQ-qFB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ski-CG-xXJ"/>
                             <constraint firstItem="QXh-QV-nim" firstAttribute="top" secondItem="taf-yH-vRl" secondAttribute="top" constant="30" id="uXP-Jy-zle"/>
                             <constraint firstItem="ROv-jm-Qr2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xYw-Qg-jd3"/>
                         </constraints>
@@ -90,6 +98,7 @@
                     <connections>
                         <outlet property="asOfLbl" destination="ROv-jm-Qr2" id="C5J-eq-fhx"/>
                         <outlet property="cityLbl" destination="iy6-AM-UaI" id="oAb-VP-Lnb"/>
+                        <outlet property="errorLabel" destination="T6N-KQ-qFB" id="lgd-qZ-M4w"/>
                         <outlet property="feelsLikeTmpLbl" destination="taf-yH-vRl" id="Rv1-tA-gDy"/>
                         <outlet property="label" destination="gpx-eo-Ehp" id="0WP-t8-Y01"/>
                         <outlet property="summaryLbl" destination="haC-H9-SDf" id="hNN-Bp-ykT"/>
@@ -97,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.23188405797103" y="132.06521739130434"/>
+            <point key="canvasLocation" x="135.19999999999999" y="131.52709359605913"/>
         </scene>
     </scenes>
 </document>
