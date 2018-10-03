@@ -18,12 +18,58 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet weak var summaryLbl: UILabel!
     @IBOutlet weak var asOfLbl: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var retryBtn: UIButton!
+    @IBOutlet weak var dot1Lbl: UILabel!
+    @IBOutlet weak var dot2Lbl: UILabel!
+    @IBOutlet weak var dot3Lbl: UILabel!
+    
+    @IBAction func retryBtnPress(_ sender: Any) {
+        locationManager.stopUpdatingLocation()
+        
+        // animation looks like this
+        
+        //        1 2 3 - do : hide 1
+        //        _ 2 3 - do : hide 2
+        //        _ _ 3 - do : hide 3
+        //        _ _ _ - do : show 1
+        //        1 _ _ - do : show 2
+        //        1 2 _ -  do : show 3
+        //        1 2 3
+
+        UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
+            self.dot1Lbl.alpha = 0
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
+                self.dot2Lbl.alpha = 0
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
+                    self.dot3Lbl.alpha = 0
+                }, completion: { _ in
+                    UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
+                        self.dot1Lbl.alpha = 1
+                    }, completion: { _ in
+                        UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
+                            self.dot2Lbl.alpha = 1
+                        }, completion: { _ in
+                            UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
+                                self.dot3Lbl.alpha = 1
+                            }, completion: { _ in
+                                
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    
+        locationManager.startUpdatingLocation()
+    }
     
     // Used to start getting the users location
     let locationManager = CLLocationManager()
     
     // Load the DarkSkyClient from the ForecastIO package
-    let client = DarkSkyClient(apiKey: "41485dc0bc40c267ad42c49793e351e9")
+    let client = DarkSkyClient(apiKey: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +94,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         // set in the UI directly
         // feelsLikeTmpLbl.text = "--"
         // asOfLbl.text = "last updated: "
-
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -137,6 +183,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     }
     
     func inCaseOfError(errorClass:String, errorString:String) {
+        // retryBtn.isHidden = false
         if (errorClass == "Geocoder") {
             errorLabel.text = "Error retriving location"
         } else if (errorClass ==  "API Call") {

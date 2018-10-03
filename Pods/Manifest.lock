@@ -1,5 +1,5 @@
 PODS:
-  - ForecastIO (5.0.0)
+  - ForecastIO (5.1.0)
 
 DEPENDENCIES:
   - ForecastIO
@@ -9,7 +9,7 @@ SPEC REPOS:
     - ForecastIO
 
 SPEC CHECKSUMS:
-  ForecastIO: 013d0110a0977712624973ceb425da1936b02acf
+  ForecastIO: cefaecb3a1bd764a03067a82ff546e84d3b97456
 
 PODFILE CHECKSUM: 666cca9c28bac4e106cb328af6558232ec1c58a6
 
