@@ -113,12 +113,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             let date_string = (dateFormatter.string(from: date))
             self.asOfLbl.text = "last updated: " + date_string
             print(date_string)
+            
             if (error != nil) {
                 self.inCaseOfError(errorClass: "Geocoder", errorString: (error?.localizedDescription)!)
                 return
+            } else {
+                self.clearError()
             }
             
             if (placemarks?.count)! > 0 {
+                self.clearError()
                 let pm = placemarks?[0]
                 self.displayLocationInfo(pm)
                 print (self.displayLocationInfo(pm))
@@ -137,6 +141,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         self.client.getForecast(latitude: lat, longitude: lon, excludeFields: [.alerts, .daily, .flags, .minutely]) { result in
             switch result {
             case .success(let currentForecast, let requestMetadata):
+                self.clearError()
                 // We got the current forecast!
                 // Get the 'Feels Like' temperature from result and update label in UI
                 // (this is where the magic happens!)
@@ -185,13 +190,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     func inCaseOfError(errorClass:String, errorString:String) {
         // retryBtn.isHidden = false
         if (errorClass == "Geocoder") {
-            errorLabel.text = "Error retriving location"
+            errorLabel.text = "Unable to retrive location"
         } else if (errorClass ==  "API Call") {
-            errorLabel.text = "Error retriving weather information"
+            errorLabel.text = "Unable to get weather information"
         } else {
             errorLabel.text = "You found a new kind of error. Cool!"
         }
         print("[" + errorClass + "] " + errorString)
+    }
+    
+    func clearError() {
+        DispatchQueue.main.async {
+            self.errorLabel.text = ""
+        }
     }
     
     override func didReceiveMemoryWarning() {
