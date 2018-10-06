@@ -12,6 +12,10 @@ import ForecastIO
 
 class ViewController: UIViewController, CLLocationManagerDelegate  {
 
+    // this allows us to return to the main ViewController via an Exit
+    // and unwind command
+    @IBAction func unwindwToHome(segue:UIStoryboardSegue) { }
+    
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var cityLbl: UILabel!
     @IBOutlet weak var feelsLikeTmpLbl: UILabel!
