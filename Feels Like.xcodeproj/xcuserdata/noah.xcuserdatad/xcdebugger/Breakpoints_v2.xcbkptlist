@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feels Like/ViewController.swift"
-            timestampString = "560554882.637502"
+            timestampString = "560556841.75914"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "locationManager(_:didFailWithError:)"
             landmarkType = "9">
          </BreakpointContent>

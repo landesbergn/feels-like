@@ -10,6 +10,12 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBAction func pressPowerdByBtn(_ sender: Any) {
+        
+        UIApplication.shared.open(URL(string: "https://darksky.net/poweredby/")! as URL
+            , options: [:], completionHandler: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
