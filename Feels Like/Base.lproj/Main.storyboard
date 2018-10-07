@@ -65,7 +65,10 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQ4-Wl-H5p">
                                         <rect key="frame" x="148" y="0.0" width="90" height="70"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="Yu5-61-WaI"/>
+                                            <constraint firstAttribute="width" constant="90" id="e7t-hM-Ji1"/>
+                                        </constraints>
                                         <inset key="contentEdgeInsets" minX="12" minY="10" maxX="27" maxY="10"/>
                                         <inset key="imageEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
                                         <state key="normal" image="refresh"/>
