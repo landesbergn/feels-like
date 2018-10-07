@@ -14,7 +14,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
 
     // this allows us to return to the main ViewController via an Exit
     // and unwind command
-    @IBAction func unwindwToHome(segue:UIStoryboardSegue) { }
+    @IBAction func unwindwToHome(segue:UIStoryboardSegue) {
+        if (units == "F") {
+            client.units = .us
+        } else {
+            client.units = .uk
+        }
+        locationManager.stopUpdatingLocation()
+        locationManager.startUpdatingLocation()
+    }
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var cityLbl: UILabel!
@@ -87,6 +95,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         locationManager.distanceFilter = 100
         
         // Set DarkSky defaults as US and English
+//        print(units)
         client.units = .us
         client.language = .english
         
