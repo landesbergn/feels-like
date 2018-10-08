@@ -221,11 +221,11 @@
                             </tableViewSection>
                             <tableViewSection id="6yZ-T1-hiz">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="420" id="wqn-DF-kIK">
-                                        <rect key="frame" x="0.0" y="116" width="414" height="420"/>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="475" id="wqn-DF-kIK">
+                                        <rect key="frame" x="0.0" y="116" width="414" height="475"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wqn-DF-kIK" id="A58-JB-Bfv">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="419.66666666666669"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="474.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -233,15 +233,15 @@
                             </tableViewSection>
                             <tableViewSection id="i3a-nQ-zBm">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="180" id="wkh-nc-Tcf">
-                                        <rect key="frame" x="0.0" y="536" width="414" height="180"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="100" id="wkh-nc-Tcf">
+                                        <rect key="frame" x="0.0" y="591" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wkh-nc-Tcf" id="Fmu-3K-Nbh">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="179.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="99.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ha7-Wo-2ss">
-                                                    <rect key="frame" x="80.666666666666686" y="43.333333333333343" width="253" height="55.666666666666657"/>
+                                                    <rect key="frame" x="80.666666666666686" y="21.999999999999996" width="253" height="55.666666666666657"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="55.670000000000002" id="1gr-tk-gD6"/>
                                                         <constraint firstAttribute="width" constant="253" id="60q-N8-VeT"/>
@@ -252,7 +252,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="ha7-Wo-2ss" firstAttribute="centerX" secondItem="Fmu-3K-Nbh" secondAttribute="centerX" id="PXw-fB-Tv6"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ha7-Wo-2ss" secondAttribute="bottom" constant="70" id="lNY-oj-jYW"/>
+                                                <constraint firstItem="ha7-Wo-2ss" firstAttribute="centerY" secondItem="Fmu-3K-Nbh" secondAttribute="centerY" id="ub0-N1-t8m"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

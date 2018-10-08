@@ -15,7 +15,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     // this allows us to return to the main ViewController via an Exit
     // and unwind command
     @IBAction func unwindwToHome(segue:UIStoryboardSegue) {
-        if (units == "F") {
+        if (defaults.string(forKey: "units") ?? "F" == "F") {
             client.units = .us
         } else {
             client.units = .uk
@@ -95,8 +95,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         locationManager.distanceFilter = 100
         
         // Set DarkSky defaults as US and English
-//        print(units)
-        client.units = .us
+        if (defaults.string(forKey: "units") ?? "F" == "F") {
+            client.units = .us
+        } else {
+            client.units = .uk
+        }
         client.language = .english
         
         label.text = ""
