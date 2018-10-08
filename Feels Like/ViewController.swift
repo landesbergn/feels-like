@@ -107,7 +107,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         summaryLbl.text = ""
         errorLabel.text = ""
         
-        // set in the UI directly
+        // set in the storyboard directly
         // feelsLikeTmpLbl.text = "--"
         // asOfLbl.text = "last updated: "
         
@@ -128,7 +128,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                         
             let date_string = (dateFormatter.string(from: date))
             self.asOfLbl.text = "last updated: " + date_string
-            print(date_string)
+            print("Last Updated: " + date_string)
             
             if (error != nil) {
                 self.inCaseOfError(errorClass: "Geocoder", errorString: (error?.localizedDescription)!)
@@ -141,7 +141,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                 self.clearError()
                 let pm = placemarks?[0]
                 self.displayLocationInfo(pm)
-                print (self.displayLocationInfo(pm))
             } else {
                 self.inCaseOfError(errorClass: "Geocoder", errorString: "Problem with the data received from geocoder")
             }
@@ -162,19 +161,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                 // Get the 'Feels Like' temperature from result and update label in UI
                 // (this is where the magic happens!)
                 if let currentFeelsTemperature: Double = currentForecast.currently?.temperature {
-                    print(currentFeelsTemperature)
+                    print("Feels like: " + String(currentFeelsTemperature))
                     DispatchQueue.main.async {
                         self.feelsLikeTmpLbl.text = String(Int(round(currentFeelsTemperature)))
                     }
                 }
                 // Get the summary string from result and update label in UI
                 if let summaryInfo: String = currentForecast.currently?.summary {
-                    print(summaryInfo)
+                    print("Summary info: " + summaryInfo)
                     DispatchQueue.main.async {
                         self.summaryLbl.text = summaryInfo
                     }
                 }
-                print(requestMetadata)
+                
+                if let icon: String = (currentForecast.currently?.icon).map({ $0.rawValue }) {
+                    print("Icon: " + icon)
+                }
+                
+                if let requestCount: Int = requestMetadata.apiRequestsCount {
+                    print("Request count: " + String(requestCount))
+                }
+//                print(requestMetadata)
+                
             case .failure(let error):
                 //  Uh-oh. We have an error!
                 self.inCaseOfError(errorClass: "API Call", errorString: error as! String)
@@ -185,12 +193,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     func displayLocationInfo(_ placemark: CLPlacemark?) {
         if let containsPlacemark = placemark {
             
+            // city name
             let locality = (containsPlacemark.locality != nil) ? containsPlacemark.locality : ""
+            
+            // postal code
             let postalCode = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
             
-            //let administrativeArea = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
-            //let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
-
+            // state
+            let administrativeArea = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
+            
+            // country
+            let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
+            
             label.text = postalCode
             cityLbl.text = locality
 
