@@ -185,7 +185,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                 
             case .failure(let error):
                 //  Uh-oh. We have an error!
-                self.inCaseOfError(errorClass: "API Call", errorString: error as! String)
+                self.inCaseOfError(errorClass: "API Call", errorString: error.localizedDescription)
             }
         }
     }
@@ -220,11 +220,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     func inCaseOfError(errorClass:String, errorString:String) {
         // retryBtn.isHidden = false
         if (errorClass == "Geocoder") {
-            errorLabel.text = "Unable to retrive location"
+            DispatchQueue.main.async {
+                self.errorLabel.text = "Unable to retrive location"
+            }
         } else if (errorClass ==  "API Call") {
-            errorLabel.text = "Unable to get weather information"
+            DispatchQueue.main.async {
+                self.errorLabel.text = "Unable to get weather information"
+            }
         } else {
-            errorLabel.text = "You found a new kind of error. Cool!"
+            DispatchQueue.main.async {
+                self.errorLabel.text = "You found a new kind of error. Cool!"
+            }
         }
         print("[" + errorClass + "] " + errorString)
     }
