@@ -34,6 +34,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet weak var dot1Lbl: UILabel!
     @IBOutlet weak var dot2Lbl: UILabel!
     @IBOutlet weak var dot3Lbl: UILabel!
+    @IBOutlet weak var realTempLbl: UILabel!
     
     @IBAction func retryBtnPress(_ sender: Any) {
         locationManager.stopUpdatingLocation()
@@ -106,6 +107,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         cityLbl.text = ""
         summaryLbl.text = ""
         errorLabel.text = ""
+        realTempLbl.text = "Real temp"
         
         // set in the storyboard directly
         // feelsLikeTmpLbl.text = "--"
@@ -157,10 +159,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             switch result {
             case .success(let currentForecast, let requestMetadata):
                 self.clearError()
+                print("~~~~~~~~")
                 // We got the current forecast!
                 // Get the 'Feels Like' temperature from result and update label in UI
                 // (this is where the magic happens!)
-                if let currentFeelsTemperature: Double = currentForecast.currently?.temperature {
+                if let currentFeelsTemperature: Double = currentForecast.currently?.apparentTemperature {
                     print("Feels like: " + String(currentFeelsTemperature))
                     DispatchQueue.main.async {
                         self.feelsLikeTmpLbl.text = String(Int(round(currentFeelsTemperature)))
@@ -178,10 +181,25 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                     print("Icon: " + icon)
                 }
                 
+                if let realTemp: Double = currentForecast.currently?.temperature {
+                    print("Real temp: " + String(realTemp))
+                    DispatchQueue.main.async {
+                        self.realTempLbl.text = "Real temp " + String(Int(round(realTemp))) + "°"
+                    }
+                }
+                
+                if let humidity: Double = currentForecast.currently?.humidity {
+                    print("Humidity: " + String(humidity) + "%")
+                }
+                
+                if let windSpeed: Double = currentForecast.currently?.windSpeed {
+                    print("Wind speed: " + String(windSpeed) + " miles per hour")
+                
                 if let requestCount: Int = requestMetadata.apiRequestsCount {
                     print("Request count: " + String(requestCount))
                 }
-//                print(requestMetadata)
+                
+                }
                 
             case .failure(let error):
                 //  Uh-oh. We have an error!
@@ -205,8 +223,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             // country
             let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
             
-            label.text = postalCode
-            cityLbl.text = locality
+//            label.text = postalCode
+            cityLbl.text = locality! + ", " + administrativeArea!
 
         }
         

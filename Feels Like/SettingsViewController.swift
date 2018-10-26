@@ -26,7 +26,7 @@ class SettingsViewController: UITableViewController {
         // Do any additional setup after loading the view.
         if (defaults.string(forKey: "units") ?? "F" == "F") {
             DispatchQueue.main.async {
-                self.selectFarenheit()
+                self.selectFahrenheit()
             }
         } else {
             DispatchQueue.main.async {
@@ -54,15 +54,15 @@ class SettingsViewController: UITableViewController {
         }
     }
     
-    func selectFarenheit() {
+    func selectFahrenheit() {
         
-        // check and bold Farenheit
+        // check and bold Fahrenheit
         tableView.cellForRow(at: [0, 0])?.accessoryType = .checkmark
-        tableView.cellForRow(at: [0, 0])?.textLabel?.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
+//        tableView.cellForRow(at: [0, 0])?.textLabel?.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
         
         // uncheck and debold Celsius
         tableView.cellForRow(at: [0, 1])?.accessoryType = .none
-        tableView.cellForRow(at: [0, 1])?.textLabel?.font = UIFont(name:"HelveticaNeue", size: 20.0)
+//        tableView.cellForRow(at: [0, 1])?.textLabel?.font = UIFont(name:"HelveticaNeue", size: 20.0)
         
     }
     
@@ -70,11 +70,11 @@ class SettingsViewController: UITableViewController {
 
         // check and bold Celsius
         tableView.cellForRow(at: [0, 1])?.accessoryType = .checkmark
-        tableView.cellForRow(at: [0, 1])?.textLabel?.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
+//        tableView.cellForRow(at: [0, 1])?.textLabel?.font = UIFont(name:"HelveticaNeue-Bold", size: 20.0)
         
-        // uncheck and debold Farenheit
+        // uncheck and debold Fahrenheit
         tableView.cellForRow(at: [0, 0])?.accessoryType = .none
-        tableView.cellForRow(at: [0, 0])?.textLabel?.font = UIFont(name:"HelveticaNeue", size: 20.0)
+//        tableView.cellForRow(at: [0, 0])?.textLabel?.font = UIFont(name:"HelveticaNeue", size: 20.0)
 
     }
     
@@ -88,9 +88,9 @@ class SettingsViewController: UITableViewController {
             return
         } else {
             if (indexPath[1] == 0) {
-                // Farenheit selected
+                // Fahrenheit selected
                 defaults.set("F", forKey: "units")
-                self.selectFarenheit()
+                self.selectFahrenheit()
             } else if (indexPath[1] == 1){
                 // Celsius selected
                 defaults.set("C", forKey: "units")
