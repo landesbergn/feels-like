@@ -130,7 +130,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                         
             let date_string = (dateFormatter.string(from: date))
             self.asOfLbl.text = "last updated: " + date_string
-            print("Last Updated: " + date_string)
+            print("~~~~~ Last Updated: " + date_string + " ~~~~~~")
             
             if (error != nil) {
                 self.inCaseOfError(errorClass: "Geocoder", errorString: (error?.localizedDescription)!)
@@ -148,9 +148,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             }
             
             let location = locations.first
-            // If I want to force stop location updates, use below:
-            // self.locationManager.stopUpdatingLocation()
+
             self.updateWeatherForLocation(lat: (location?.coordinate.latitude)!, lon: (location?.coordinate.longitude)!)
+            
         })
     }
     
@@ -159,48 +159,55 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             switch result {
             case .success(let currentForecast, let requestMetadata):
                 self.clearError()
-                print("~~~~~~~~")
-                // We got the current forecast!
-                // Get the 'Feels Like' temperature from result and update label in UI
-                // (this is where the magic happens!)
-                if let currentFeelsTemperature: Double = currentForecast.currently?.apparentTemperature {
-                    print("Feels like: " + String(currentFeelsTemperature))
-                    DispatchQueue.main.async {
-                        self.feelsLikeTmpLbl.text = String(Int(round(currentFeelsTemperature)))
-                    }
-                }
-                // Get the summary string from result and update label in UI
-                if let summaryInfo: String = currentForecast.currently?.summary {
-                    print("Summary info: " + summaryInfo)
-                    DispatchQueue.main.async {
-                        self.summaryLbl.text = summaryInfo
-                    }
-                }
                 
-                if let icon: String = (currentForecast.currently?.icon).map({ $0.rawValue }) {
-                    print("Icon: " + icon)
+                let forecast = currentForecast.currently!
+                let DSairTemp = Double(forecast.temperature!)
+                let DSwindSpeed = Double(forecast.windSpeed!)
+                let DShumidity = Double(forecast.humidity! * 100.0)
+                let DSapparentTemp = Double(forecast.apparentTemperature!)
+                let DSsummaryInfo = String(forecast.summary!)
+                // let DSiconInfo = (forecast.icon).map({ $0.rawValue })
+                
+                let windChill = self.calcWindChill(airTemp: DSairTemp, windSpeed: DSwindSpeed)
+                let heatIndex = self.calcHeatIndex(airTemp: DSairTemp, humidity: DShumidity)
+                
+                // from https://www.meteor.iastate.edu/~ckarsten/bufkit/apparent_temperature.html
+                var apparentTemp = DSairTemp
+                var compareValue = 50.0
+                
+                if (defaults.string(forKey: "units") ?? "F" == "C") {
+                    compareValue = 10.0
                 }
                 
-                if let realTemp: Double = currentForecast.currently?.temperature {
-                    print("Real temp: " + String(realTemp))
-                    DispatchQueue.main.async {
-                        self.realTempLbl.text = "Real temp " + String(Int(round(realTemp))) + "°"
-                    }
+                if DSairTemp <= compareValue {
+                    apparentTemp = windChill
+                    print("wind makes it " + String(round(DSairTemp) - round(DSapparentTemp)) + "° colder")
+                } else if DSairTemp > compareValue {
+                    apparentTemp = heatIndex
+                    print("humidity makes it " + String(round(DSapparentTemp) - round(DSairTemp)) + "° hotter")
                 }
                 
-                if let humidity: Double = currentForecast.currently?.humidity {
-                    print("Humidity: " + String(humidity) + "%")
+                print("Summary Text: " + DSsummaryInfo)
+                print("Apparent Temp: " + String(Int(round(apparentTemp))))
+                print("DS Apparent Temp: " + String(Int(round(DSapparentTemp))))
+                print("DS Real Temp: " + String(Int(round(DSairTemp))))
+                print("DS Humidity: " + String(DShumidity))
+                print("DS Wind Speed: " + String(DSwindSpeed))
+                
+                // Update labels
+                DispatchQueue.main.async {
+                    self.feelsLikeTmpLbl.text = String(Int(round(apparentTemp)))
+                    self.realTempLbl.text = "Real temp " + String(Int(round(DSairTemp))) + "°"
+                    self.summaryLbl.text = DSsummaryInfo
                 }
                 
-                if let windSpeed: Double = currentForecast.currently?.windSpeed {
-                    print("Wind speed: " + String(windSpeed) + " miles per hour")
-                
+                // Get api request count
                 if let requestCount: Int = requestMetadata.apiRequestsCount {
-                    print("Request count: " + String(requestCount))
+                    print("Request Count: " + String(requestCount))
                 }
                 
-                }
-                
+                print("-----------------------------------")
+    
             case .failure(let error):
                 //  Uh-oh. We have an error!
                 self.inCaseOfError(errorClass: "API Call", errorString: error.localizedDescription)
@@ -223,8 +230,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
             // country
             let country = (containsPlacemark.country != nil) ? containsPlacemark.country : ""
             
-//            label.text = postalCode
-            cityLbl.text = locality! + ", " + administrativeArea!
+            // label.text = postalCode
+            cityLbl.text = locality!  + ", " + administrativeArea!
 
         }
         
@@ -263,6 +270,60 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func calcWindChill(airTemp:Double, windSpeed:Double) -> Double {
+        var tempAirTemp = airTemp
+        var tempWindSpeed = windSpeed
+        if (defaults.string(forKey: "units") ?? "F" == "C") {
+            tempAirTemp = convertCtoF(C: airTemp)
+            tempWindSpeed = windSpeed / 1.609
+        }
+        
+        var returnVal = 35.74 + (0.6215 * tempAirTemp) - 35.75 * pow(tempWindSpeed, 0.16) + (0.4275 * tempAirTemp) * pow(tempWindSpeed, 0.16)
+        if (defaults.string(forKey: "units") ?? "F" == "C") {
+            returnVal = convertFtoC(F: returnVal)
+        }
+        
+        return(returnVal)
+    }
+    
+    // from https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml
+    func calcHeatIndex(airTemp:Double, humidity:Double) -> Double {
+        
+        var tempAirTemp = airTemp
+        
+        if (defaults.string(forKey: "units") ?? "F" == "C") {
+            tempAirTemp = convertCtoF(C: airTemp)
+        }
+        
+        let heatIndex = -42.379 + (2.04901523 * tempAirTemp) + (10.14333127 * humidity) - (0.22475541 * tempAirTemp * humidity) - (0.00683783 * tempAirTemp * tempAirTemp) - (0.05481717 * humidity * humidity) + (0.00122874 * tempAirTemp * tempAirTemp * humidity) + (0.00085282 * tempAirTemp * humidity * humidity) - (0.00000199 * tempAirTemp * tempAirTemp * humidity * humidity)
+        
+        var heatIndexAdj = 0.0
+        
+        if humidity < 13.0  && (tempAirTemp > 80 && tempAirTemp < 112) {
+            let adj1 = (13.0 - humidity) / 4.0
+            let adj2 = sqrt(17.0 - abs(tempAirTemp - 95.0)/17.0)
+            heatIndexAdj = adj1 * adj2
+        }
+        
+        if humidity > 85.0 && (tempAirTemp > 80 && tempAirTemp < 87) {
+            heatIndexAdj = ((humidity - 85.0) / 10.0) * ((87.0 - tempAirTemp) / 5.0)
+        }
+        
+        if (defaults.string(forKey: "units") ?? "F" == "C") {
+         return(convertFtoC(F: (heatIndex - heatIndexAdj)))
+        } else {
+        return(heatIndex - heatIndexAdj)
+        }
+    }
+    
+    func convertCtoF(C:Double) -> Double {
+        return((C * 9/5) + 32)
+    }
+    
+    func convertFtoC(F:Double) -> Double {
+        return((F - 32) * 5/9)
+    }
+    
 }
 
