@@ -35,6 +35,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet weak var dot2Lbl: UILabel!
     @IBOutlet weak var dot3Lbl: UILabel!
     @IBOutlet weak var realTempLbl: UILabel!
+    @IBOutlet weak var diffImage: UIImageView!
+    @IBOutlet weak var diffLbl: UILabel!
     
     @IBAction func retryBtnPress(_ sender: Any) {
         locationManager.stopUpdatingLocation()
@@ -107,6 +109,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         cityLbl.text = ""
         summaryLbl.text = ""
         errorLabel.text = ""
+        diffLbl.text = ""
         realTempLbl.text = "Real temp"
         
         // set in the storyboard directly
@@ -173,18 +176,35 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                 
                 // from https://www.meteor.iastate.edu/~ckarsten/bufkit/apparent_temperature.html
                 var apparentTemp = DSairTemp
-                var compareValue = 50.0
+                // if temp below 50F, use windchill.
+                // if temp above 60F use heat index
+                var belowUseWind = 50.0
+                var aboveUseHeat = 60.0
                 
                 if (defaults.string(forKey: "units") ?? "F" == "C") {
-                    compareValue = 10.0
+                    belowUseWind = self.convertFtoC(F: belowUseWind)
+                    aboveUseHeat = self.convertFtoC(F: aboveUseHeat)
                 }
                 
-                if DSairTemp <= compareValue {
+                if (round(DSairTemp) < belowUseWind) && (windChill < DSairTemp) {
                     apparentTemp = windChill
-                    print("wind makes it " + String(round(DSairTemp) - round(DSapparentTemp)) + "° colder")
-                } else if DSairTemp > compareValue {
+                    DispatchQueue.main.async {
+                        self.diffImage.image = UIImage(named:"wind")!
+                        self.diffImage.isHidden = false
+                        self.diffLbl.text = String("Wind makes it " + String(round(DSairTemp) - round(apparentTemp)) + "° colder")
+                    }
+                } else if (round(DSairTemp) > aboveUseHeat) && (heatIndex > DSairTemp) {
                     apparentTemp = heatIndex
-                    print("humidity makes it " + String(round(DSapparentTemp) - round(DSairTemp)) + "° hotter")
+                    DispatchQueue.main.async {
+                        self.diffImage.image = UIImage(named:"humidity")!
+                        self.diffImage.isHidden = false
+                        self.diffLbl.text = String("Humidity makes it " + String(round(apparentTemp) - round(DSairTemp)) + "° hotter")
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.diffImage.isHidden = true
+                        self.diffLbl.text = ""
+                    }
                 }
                 
                 print("Summary Text: " + DSsummaryInfo)
@@ -311,9 +331,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         }
         
         if (defaults.string(forKey: "units") ?? "F" == "C") {
-         return(convertFtoC(F: (heatIndex - heatIndexAdj)))
+            return(convertFtoC(F: (heatIndex - heatIndexAdj)))
         } else {
-        return(heatIndex - heatIndexAdj)
+            return(heatIndex - heatIndexAdj)
         }
     }
     
