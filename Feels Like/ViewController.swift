@@ -110,6 +110,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         summaryLbl.text = ""
         errorLabel.text = ""
         diffLbl.text = ""
+        diffImage.isHidden = true
         realTempLbl.text = "Real temp"
         
         // set in the storyboard directly
@@ -186,24 +187,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                     aboveUseHeat = self.convertFtoC(F: aboveUseHeat)
                 }
                 
-                if (round(DSairTemp) < belowUseWind) && (windChill < DSairTemp) {
+                if (round(DSairTemp) < belowUseWind) && (round(windChill) < round(DSairTemp)) {
                     apparentTemp = windChill
                     DispatchQueue.main.async {
                         self.diffImage.image = UIImage(named:"wind")!
                         self.diffImage.isHidden = false
-                        self.diffLbl.text = String("Wind makes it " + String(round(DSairTemp) - round(apparentTemp)) + "° colder")
+                        self.diffLbl.text = String("Wind makes it " + String(Int(round(DSairTemp) - round(apparentTemp))) + "° colder")
                     }
-                } else if (round(DSairTemp) > aboveUseHeat) && (heatIndex > DSairTemp) {
+                } else if (round(DSairTemp) > aboveUseHeat) && (round(heatIndex) > round(DSairTemp)) {
                     apparentTemp = heatIndex
                     DispatchQueue.main.async {
                         self.diffImage.image = UIImage(named:"humidity")!
                         self.diffImage.isHidden = false
-                        self.diffLbl.text = String("Humidity makes it " + String(round(apparentTemp) - round(DSairTemp)) + "° hotter")
+                        self.diffLbl.text = String("Humidity makes it " + String(Int(round(apparentTemp) - round(DSairTemp))) + "° hotter")
                     }
                 } else {
                     DispatchQueue.main.async {
                         self.diffImage.isHidden = true
-                        self.diffLbl.text = ""
+                        self.diffLbl.text = "🤘 everything is awesome 🤘"
                     }
                 }
                 
