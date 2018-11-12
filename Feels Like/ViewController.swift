@@ -30,56 +30,57 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     @IBOutlet weak var summaryLbl: UILabel!
     @IBOutlet weak var asOfLbl: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var retryBtn: UIButton!
-    @IBOutlet weak var dot1Lbl: UILabel!
-    @IBOutlet weak var dot2Lbl: UILabel!
-    @IBOutlet weak var dot3Lbl: UILabel!
     @IBOutlet weak var realTempLbl: UILabel!
-    @IBOutlet weak var diffImage: UIImageView!
     @IBOutlet weak var diffLbl: UILabel!
+    @IBOutlet weak var fireIceImage: UIImageView!
+    @IBOutlet weak var squigImgView: UIImageView!
     
     @IBAction func retryBtnPress(_ sender: Any) {
         locationManager.stopUpdatingLocation()
         
-        // animation looks like this
-        
-        //        1 2 3 - do : hide 1
-        //        _ 2 3 - do : hide 2
-        //        _ _ 3 - do : hide 3
-        //        _ _ _ - do : show 1
-        //        1 _ _ - do : show 2
-        //        1 2 _ -  do : show 3
-        //        1 2 3
-
-        UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
-            self.dot1Lbl.alpha = 0
+        UIView.animate(withDuration: 0.25, delay: 0, options: [], animations: {
+            self.label.alpha = 0
+            self.cityLbl.alpha = 0
+            self.summaryLbl.alpha = 0
+            self.errorLabel.alpha = 0
+            self.diffLbl.alpha = 0
+            self.realTempLbl.alpha = 0
+            self.fireIceImage.alpha = 0
+            self.feelsLikeTmpLbl.alpha = 0
+            self.asOfLbl.alpha = 0
         }, completion: { _ in
-            UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
-                self.dot2Lbl.alpha = 0
+            UIView.animate(withDuration: 0.4, delay: 0, options: [], animations: {
+                self.squigImgView.alpha = 1
             }, completion: { _ in
-                UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
-                    self.dot3Lbl.alpha = 0
+                UIView.animate(withDuration: 0.4, delay: 0, options: [], animations: {
+                    self.squigImgView.alpha = 0
                 }, completion: { _ in
-                    UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
-                        self.dot1Lbl.alpha = 1
+                    UIView.animate(withDuration: 0.4, delay: 0, options: [], animations: {
+                        self.squigImgView.alpha = 1
                     }, completion: { _ in
-                        UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
-                            self.dot2Lbl.alpha = 1
+                        UIView.animate(withDuration: 0.4, delay: 0, options: [], animations: {
+                            self.squigImgView.alpha = 0
                         }, completion: { _ in
-                            UIView.animate(withDuration: 0.15, delay: 0, options: [], animations: {
-                                self.dot3Lbl.alpha = 1
+                            UIView.animate(withDuration: 0.25, delay: 0, options: [], animations: {
+                                self.locationManager.startUpdatingLocation()
+                                self.label.alpha = 1
+                                self.cityLbl.alpha = 1
+                                self.summaryLbl.alpha = 1
+                                self.errorLabel.alpha = 1
+                                self.diffLbl.alpha = 1
+                                self.realTempLbl.alpha = 1
+                                self.fireIceImage.alpha = 1
+                                self.feelsLikeTmpLbl.alpha = 1
+                                self.asOfLbl.alpha = 1
                             }, completion: { _ in
-                                
                             })
                         })
                     })
                 })
             })
         })
-    
-        locationManager.startUpdatingLocation()
     }
-    
+
     // Used to start getting the users location
     let locationManager = CLLocationManager()
     
@@ -110,12 +111,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
         summaryLbl.text = ""
         errorLabel.text = ""
         diffLbl.text = ""
-        diffImage.isHidden = true
         realTempLbl.text = "Real temp"
+        fireIceImage.isHidden = true
+        squigImgView.alpha = 0
         
         // set in the storyboard directly
-        // feelsLikeTmpLbl.text = "--"
-        // asOfLbl.text = "last updated: "
+         feelsLikeTmpLbl.text = "--"
+         asOfLbl.text = "last updated: "
         
     }
     
@@ -190,20 +192,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                 if (round(DSairTemp) < belowUseWind) && (round(windChill) < round(DSairTemp)) {
                     apparentTemp = windChill
                     DispatchQueue.main.async {
-                        self.diffImage.image = UIImage(named:"wind")!
-                        self.diffImage.isHidden = false
-                        self.diffLbl.text = String("Wind makes it " + String(Int(round(DSairTemp) - round(apparentTemp))) + "° colder")
+                        self.diffLbl.text = String("feels " + String(Int(round(DSairTemp) - round(apparentTemp))) + "° colder")
+                        self.fireIceImage.image = UIImage(named:"ice")!
+                        self.fireIceImage.isHidden = false
                     }
                 } else if (round(DSairTemp) > aboveUseHeat) && (round(heatIndex) > round(DSairTemp)) {
                     apparentTemp = heatIndex
                     DispatchQueue.main.async {
-                        self.diffImage.image = UIImage(named:"humidity")!
-                        self.diffImage.isHidden = false
-                        self.diffLbl.text = String("Humidity makes it " + String(Int(round(apparentTemp) - round(DSairTemp))) + "° hotter")
+                        self.diffLbl.text = String("feels " + String(Int(round(apparentTemp) - round(DSairTemp))) + "° hotter")
+                        self.fireIceImage.image = UIImage(named:"fire")!
+                        self.fireIceImage.isHidden = false
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self.diffImage.isHidden = true
+                        self.fireIceImage.isHidden = true
                         self.diffLbl.text = "🤘 everything is awesome 🤘"
                     }
                 }
@@ -264,7 +266,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
     }
     
     func inCaseOfError(errorClass:String, errorString:String) {
-        // retryBtn.isHidden = false
         if (errorClass == "Geocoder") {
             DispatchQueue.main.async {
                 self.errorLabel.text = "Unable to retrive location"
