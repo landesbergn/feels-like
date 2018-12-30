@@ -18,6 +18,7 @@
 		4F121A602141EEB40059BA14 /* Feels_LikeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F121A5F2141EEB40059BA14 /* Feels_LikeUITests.swift */; };
 		4F121A6F2141F1770059BA14 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F121A6E2141F16A0059BA14 /* CoreLocation.framework */; };
 		4F45AFE921695F5C00F1E23C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F45AFE821695F5C00F1E23C /* SettingsViewController.swift */; };
+		4FAA18EE21D97D94009ED6CA /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FAA18ED21D97D94009ED6CA /* keys.plist */; };
 		61BB9EF0845EFBAC29A87701 /* Pods_Feels_LikeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E29516656D368289A504BD /* Pods_Feels_LikeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		4F121A6E2141F16A0059BA14 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4F2D1EE863C15C0233D64814 /* Pods-Feels Like.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feels Like.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feels Like/Pods-Feels Like.debug.xcconfig"; sourceTree = "<group>"; };
 		4F45AFE821695F5C00F1E23C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		4FAA18ED21D97D94009ED6CA /* keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		60E29516656D368289A504BD /* Pods_Feels_LikeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feels_LikeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FCA0E0E2EB33AF30F12C41 /* Pods_Feels_LikeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Feels_LikeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B94A1572DECED30DC1FDEDF8 /* Pods-Feels LikeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feels LikeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feels LikeUITests/Pods-Feels LikeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				4F121A462141EEB30059BA14 /* Assets.xcassets */,
 				4F121A482141EEB30059BA14 /* LaunchScreen.storyboard */,
 				4F121A4B2141EEB30059BA14 /* Info.plist */,
+				4FAA18ED21D97D94009ED6CA /* keys.plist */,
 			);
 			path = "Feels Like";
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FAA18EE21D97D94009ED6CA /* keys.plist in Resources */,
 				4F121A4A2141EEB30059BA14 /* LaunchScreen.storyboard in Resources */,
 				4F121A472141EEB30059BA14 /* Assets.xcassets in Resources */,
 				4F121A452141EEB30059BA14 /* Main.storyboard in Resources */,
