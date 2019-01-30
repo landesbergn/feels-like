@@ -1,4 +1,6 @@
-# Feels Like (for iOS) - Coming Soon
+# Feels Like (for iOS) - Coming Eventually
+Join the public beta: https://testflight.apple.com/join/HX8SAMGQ
+
 :snowflake::snowman: who cares that it's 20° when it **FEELS LIKE** -5°! :snowflake::snowman:  
 :sunny::sun_with_face: who cares that it's 87° when it **FEELS LIKE** 102°! :sunny::sun_with_face:   
 
