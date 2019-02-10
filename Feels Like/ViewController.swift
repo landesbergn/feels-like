@@ -174,8 +174,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate  {
                 let DSsummaryInfo = String(forecast.summary!)
                 // let DSiconInfo = (forecast.icon).map({ $0.rawValue })
                 
-                let windChill = self.calcWindChill(airTemp: DSairTemp, windSpeed: DSwindSpeed)
-                let heatIndex = self.calcHeatIndex(airTemp: DSairTemp, humidity: DShumidity)
+                // let windChill = self.calcWindChill(airTemp: DSairTemp, windSpeed: DSwindSpeed)
+                let windChill = DSapparentTemp
+                // let heatIndex = self.calcHeatIndex(airTemp: DSairTemp, humidity: DShumidity)
+                let heatIndex = DSapparentTemp
                 
                 // from https://www.meteor.iastate.edu/~ckarsten/bufkit/apparent_temperature.html
                 var apparentTemp = DSairTemp
