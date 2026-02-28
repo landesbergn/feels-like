@@ -1,5 +1,19 @@
-# Feels Like (for iOS) - Coming Eventually
-Join the public beta: https://testflight.apple.com/join/HX8SAMGQ
+# Feels Like (for iOS) - End of Life
+I worked on this project while living in Cambridge, Massachusetts in the early winter of 2018. I found myself frustrated that the temperature was constantly misrepresented by weather apps and wanted to build something that felt more honest. 
+
+On December 30th, 2018 Apple unceremoniously rejected my application from the App Store, stating:
+> We found that the usefulness of your app is limited by the minimal amount of content or features it includes. 
+
+Clearly Apple was threatened by this project, and just a few years later purchased DarkSky and shut down the API that powered this app.
+
+During this project I learned about:
+* iOS and Swift development, and the value of YouTube tutorials for building software
+* How to calculate wind chill / heat index, and convert between F and C
+* The tyranny of gatekeepers keeping revolutionary weather technology from the masses
+
+This project is no longer being maintained, and the original README follows below.
+
+<hr>
 
 :snowflake::snowman: who cares that it's 20° when it **FEELS LIKE** -5°! :snowflake::snowman:  
 :sunny::sun_with_face: who cares that it's 87° when it **FEELS LIKE** 102°! :sunny::sun_with_face:   
